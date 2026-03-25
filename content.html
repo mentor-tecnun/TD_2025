@@ -607,7 +607,8 @@ async function init() {
     appDiv.innerHTML = `<div class="content">${renderJSON(json)}</div>`;
 
     if (location.hash) {
-      const el = document.querySelector(decodeURIComponent(location.hash));
+      const hash = decodeURIComponent(location.hash.slice(1)).toLowerCase().replace(/\s+/g, '-');
+      const el = document.getElementById(hash);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
 
