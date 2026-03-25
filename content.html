@@ -511,7 +511,7 @@ function renderPracticaItem(item) {
 }
 
 function renderSection(section) {
-  let html = `<h2 class="section-title">${escHtml(section.section)}</h2>`;
+  let html = `<h2 id="${escHtml(section.section)}" class="section-title">${escHtml(section.section)}</h2>`;
   html += `<table class="topic-table">
     <thead>
       <tr>
@@ -529,7 +529,7 @@ function renderSection(section) {
     const practicasHTML = t.practicas.map(renderPracticaItem).join('');
 
     html += `<tr>
-      <td>${escHtml(t.topic)}</td>
+      <td id="${escHtml(t.topic)}">${escHtml(t.topic)}</td>
       <td>${contenidoHTML || '<span style="color:var(--text-muted)">—</span>'}</td>
       <td>${materialesHTML || '<span style="color:var(--text-muted)">—</span>'}</td>
       <td>${practicasHTML || '<span style="color:var(--text-muted)">—</span>'}</td>
