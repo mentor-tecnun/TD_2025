@@ -511,7 +511,8 @@ function renderPracticaItem(item) {
 }
 
 function renderSection(section) {
-  let html = `<h2 id="${escHtml(section.section)}" class="section-title">${escHtml(section.section)}</h2>`;
+  const sectionId = section.section.toLowerCase().replace(/\s+/g, '-');
+  let html = `<h2 id="${sectionId}" class="section-title">${escHtml(section.section)}</h2>`;
   html += `<table class="topic-table">
     <thead>
       <tr>
@@ -528,8 +529,9 @@ function renderSection(section) {
     const materialesHTML = t.materiales.map(renderMaterialRow).join('');
     const practicasHTML = t.practicas.map(renderPracticaItem).join('');
 
+    const topicId = t.topic.toLowerCase().replace(/\s+/g, '-');
     html += `<tr>
-      <td id="${escHtml(t.topic)}">${escHtml(t.topic)}</td>
+      <td id="${topicId}">${escHtml(t.topic)}</td>
       <td>${contenidoHTML || '<span style="color:var(--text-muted)">—</span>'}</td>
       <td>${materialesHTML || '<span style="color:var(--text-muted)">—</span>'}</td>
       <td>${practicasHTML || '<span style="color:var(--text-muted)">—</span>'}</td>
@@ -603,6 +605,11 @@ async function init() {
     // Render tables
     const appDiv = document.getElementById('app-content');
     appDiv.innerHTML = `<div class="content">${renderJSON(json)}</div>`;
+
+    if (location.hash) {
+      const el = document.querySelector(decodeURIComponent(location.hash));
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
 
     loadMsg.style.display = 'none';
     pill.textContent = `${json.reduce((a, s) => a + s.topics.length, 0)} temas`;
