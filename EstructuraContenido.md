@@ -49,6 +49,8 @@
 - [Práctica 2](https://nicolasserrano.github.io/CS/TecnologiaDigital/Apuntes/Practica2.pdf)
 - [Code beautify](https://codebeautify.org/javaviewer)
 
+# Programación Orientada a Objeto
+
 ## Clases y objetos
 
 ### Contenido
@@ -108,6 +110,8 @@
 - [Práctica 4](https://nicolasserrano.github.io/CS/TecnologiaDigital/Apuntes/Practica4.pdf)
 - [Práctica 5](https://nicolasserrano.github.io/CS/TecnologiaDigital/Apuntes/Practica5.pdf)
 
+# Internet
+
 ## Internet y lenguaje HTML
 
 ### Contenido
@@ -151,6 +155,30 @@
 
 ### Prácticas
 
+## CSS
+
+### Contenido
+
+- [Presentación CSS](https://www.nicolasserrano.com/viscom/CSS.html)
+
+### Materiales
+
+- Documento [Referencia CSS](http://www.nicolasserrano.com/CS/CSS/CSS.pdf)
+- Video [2. Introducción](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=8cec7bab-8eb9-4c8f-8f4f-ab7f00bbf5f6) [doc presentación CSS](http://nicolasserrano.github.io/viscom/CSS.html#/0)
+- Video [3. Fuentes](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=6b8eadc2-9e6a-4258-b374-ab7f00c2d74e) [typetester](http://www.typetester.org/) [The Anatomy of Type](https://typeanatomy.com/)
+- Video [4. Color](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=a77c0239-87f0-4ee9-9b62-ab7f00cbdb6e) [Paletton](http://paletton.com/) [Adobe Color](https://color.adobe.com/)
+- Video [5. Aplicación estilo CSS en página Web](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=882d4808-b7f3-419a-956a-ab7f00c6b86c) [html initial](https://github.com/nicolasserrano/CS/blob/master/CSS/TestCSS_ini.html) [html final](https://github.com/nicolasserrano/CS/blob/master/CSS/TestCSS_fin.html)
+- Video [6. Modelo de cajas](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=8a9ec0ed-de77-4d10-91d7-ab7f00cf2a17) [boxmodel](https://hicks.design/journal/3d-css-box-model)
+- Video [7. Utilidades](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=9bb839a7-1466-4106-900a-ab7f00cdc1e9) [CSS Zen Garden](http://www.csszengarden.com/)
+- Video [8. Frameworks](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b1c192a3-5125-43a7-a501-ab7f00d3d296) [W3.CSS](https://www.w3schools.com/w3css/)
+- Opcional Video [Typography](https://edu.gcfglobal.org/en/beginning-graphic-design/typography/1/)
+- Opcional Video [Color](https://edu.gcfglobal.org/en/beginning-graphic-design/color/1/)
+- Opcional Video [Composition & layout](https://edu.gcfglobal.org/en/beginning-graphic-design/layout-and-composition/1/)
+
+### Prácticas
+
+# Servlets
+
 ## Introducción a los servlets
 
 ### Contenido
@@ -193,7 +221,24 @@
 - [Ficheros aplicación reservaLibros](https://github.com/nicolasserrano/CS/tree/master/webapps/reservaLibros)
 - [Ficheros aplicación panel](https://github.com/nicolasserrano/CS/tree/master/webapps/panel)
 
-# Opción 1
+## Sesión con servlets
+
+### Contenido
+
+- [Práctica 10](https://aula-virtual.unav.edu/bbcswebdav/pid-1218284-dt-content-rid-2906508_1/xid-2906508_1)
+
+### Materiales
+
+- Video [1. Http protocolo stateless](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=d0c48fb7-6078-4cf4-8aed-ab87011301fa)
+- Video [2. Campos ocultos](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3e7dca32-3931-4763-8c80-ab8701163c45) [doc ShoppingCart.java](https://github.com/nicolasserrano/CS/blob/master/webapps/sesiones/WEB-INF/classes/ShoppingCart.java)
+- Video [3. Cookies](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=5eb80a66-afda-4e0c-8993-ab870118818d)
+- Video [4. Servlet ShowSession](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3c2b1c6a-0fc2-441a-816d-ab87011c9021) [doc ShowSession](https://github.com/nicolasserrano/CS/blob/master/webapps/sesiones/WEB-INF/classes/ShowSession.java)
+- Opcional Video [5. Documentación clase HttpSession](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=073be94a-a2e0-4ece-b648-ab87011ede73) [doc Java EE API](https://javaee.github.io/javaee-spec/javadocs/)
+- Opcional Video [6. Sesión en aplicación Northbrick](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=6f1cdea0-8e1c-492b-8e1f-ab8a00b6a300)
+
+### Prácticas
+
+# Computación
 
 ## Conceptos de computación
 
@@ -241,7 +286,7 @@
 
 ### Prácticas
 
-# Opción 2
+# Excel
 
 ## Introducción a Excel
 
@@ -273,7 +318,7 @@
 
 ### Prácticas
 
-# Opción 3
+# Blender
 
 ## Introducción a Blender
 
@@ -305,59 +350,7 @@
 
 ### Prácticas
 
-# Otros temas
-
-## CSS
-
-### Contenido
-
-- [Presentación CSS](https://www.nicolasserrano.com/viscom/CSS.html)
-
-### Materiales
-
-- Documento [Referencia CSS](http://www.nicolasserrano.com/CS/CSS/CSS.pdf)
-- Video [2. Introducción](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=8cec7bab-8eb9-4c8f-8f4f-ab7f00bbf5f6) [doc presentación CSS](http://nicolasserrano.github.io/viscom/CSS.html#/0)
-- Video [3. Fuentes](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=6b8eadc2-9e6a-4258-b374-ab7f00c2d74e) [typetester](http://www.typetester.org/) [The Anatomy of Type](https://typeanatomy.com/)
-- Video [4. Color](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=a77c0239-87f0-4ee9-9b62-ab7f00cbdb6e) [Paletton](http://paletton.com/) [Adobe Color](https://color.adobe.com/)
-- Video [5. Aplicación estilo CSS en página Web](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=882d4808-b7f3-419a-956a-ab7f00c6b86c) [html initial](https://github.com/nicolasserrano/CS/blob/master/CSS/TestCSS_ini.html) [html final](https://github.com/nicolasserrano/CS/blob/master/CSS/TestCSS_fin.html)
-- Video [6. Modelo de cajas](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=8a9ec0ed-de77-4d10-91d7-ab7f00cf2a17) [boxmodel](https://hicks.design/journal/3d-css-box-model)
-- Video [7. Utilidades](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=9bb839a7-1466-4106-900a-ab7f00cdc1e9) [CSS Zen Garden](http://www.csszengarden.com/)
-- Video [8. Frameworks](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b1c192a3-5125-43a7-a501-ab7f00d3d296) [W3.CSS](https://www.w3schools.com/w3css/)
-- Opcional Video [Typography](https://edu.gcfglobal.org/en/beginning-graphic-design/typography/1/)
-- Opcional Video [Color](https://edu.gcfglobal.org/en/beginning-graphic-design/color/1/)
-- Opcional Video [Composition & layout](https://edu.gcfglobal.org/en/beginning-graphic-design/layout-and-composition/1/)
-
-### Prácticas
-
-## Sesión con servlets
-
-### Contenido
-
-- [Práctica 10](https://aula-virtual.unav.edu/bbcswebdav/pid-1218284-dt-content-rid-2906508_1/xid-2906508_1)
-
-### Materiales
-
-- Video [1. Http protocolo stateless](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=d0c48fb7-6078-4cf4-8aed-ab87011301fa)
-- Video [2. Campos ocultos](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3e7dca32-3931-4763-8c80-ab8701163c45) [doc ShoppingCart.java](https://github.com/nicolasserrano/CS/blob/master/webapps/sesiones/WEB-INF/classes/ShoppingCart.java)
-- Video [3. Cookies](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=5eb80a66-afda-4e0c-8993-ab870118818d)
-- Video [4. Servlet ShowSession](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3c2b1c6a-0fc2-441a-816d-ab87011c9021) [doc ShowSession](https://github.com/nicolasserrano/CS/blob/master/webapps/sesiones/WEB-INF/classes/ShowSession.java)
-- Opcional Video [5. Documentación clase HttpSession](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=073be94a-a2e0-4ece-b648-ab87011ede73) [doc Java EE API](https://javaee.github.io/javaee-spec/javadocs/)
-- Opcional Video [6. Sesión en aplicación Northbrick](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=6f1cdea0-8e1c-492b-8e1f-ab8a00b6a300)
-
-### Prácticas
-
-## Ajax
-
-### Contenido
-
-- Ajax
-
-### Materiales
-
-- Video [1. AJAX](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=f2a17061-2cd1-488e-a4ab-ab8a010a6575) [doc AJAX](https://nicolasserrano.github.io/CS/AJAX/)
-- Video [2. AJAX con JSON](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=6eff6d16-12ca-4427-8127-ab8a01106b81) [doc bookForm2](https://nicolasserrano.github.io/CS/AJAX/bookForm2.html)
-
-### Prácticas
+# Desarrollo de software
 
 ## JDBC
 
@@ -377,6 +370,19 @@
 - Opcional Video [12. UcanAccess driver](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b1751026-8c43-4d41-a2e5-b29100fbd186)
 - Opcional Video [13. API JDBC](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=655c44af-dcc7-443c-be13-b29100facf6f)
 - Opcional Video [14. Metadata](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=625e5120-9bf2-4241-add8-b29101019916)
+
+### Prácticas
+
+## Ajax
+
+### Contenido
+
+- Ajax
+
+### Materiales
+
+- Video [1. AJAX](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=f2a17061-2cd1-488e-a4ab-ab8a010a6575) [doc AJAX](https://nicolasserrano.github.io/CS/AJAX/)
+- Video [2. AJAX con JSON](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=6eff6d16-12ca-4427-8127-ab8a01106b81) [doc bookForm2](https://nicolasserrano.github.io/CS/AJAX/bookForm2.html)
 
 ### Prácticas
 
