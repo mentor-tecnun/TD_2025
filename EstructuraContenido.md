@@ -160,6 +160,12 @@
 ### Materiales
 
 - Video [1. Servlets](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e644bdbd-0a69-4ddb-9854-ab7c016ace3c)
+- Video [2. Instalación e inicio de Apache-Tomcat](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=5e68cff8-4147-4b40-a099-b29f00cd3f25) [doc Tomcat server](https://nicolasserrano.github.io/CS/Tomcat)
+- Video [3. Creación de un servlet](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=90372bf1-7c63-4071-9948-ab8700a9023e)
+- Video [4. Estructura de un servlet](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=ef63c37c-054e-4da2-8f53-ab8700aca645) [file HelloWorld.java](https://github.com/nicolasserrano/CS/blob/master/webapps/Servlet1/WEB-INF/classes/HelloWorld.java)
+- Video [5. Estructura de un fichero web.xml](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=aeba034e-3f2f-464f-b473-ab8700aedd8d) [file web.xml](https://github.com/nicolasserrano/CS/blob/master/webapps/Servlet1/WEB-INF/web.xml)
+- Video [6. Lectura de parámetros](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=cc7e9be7-6837-4514-a7e6-ab870100c8d9) [folder Servlet2](https://github.com/nicolasserrano/CS/tree/master/webapps/Servlet2)
+- Opcional Video [7. Ejercicios 5, 6 y 7](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=7726d3b0-0b21-432c-a43c-ad0600ceeec7)
 
 ### Prácticas
 
@@ -332,6 +338,11 @@
 ### Materiales
 
 - Video [1. Http protocolo stateless](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=d0c48fb7-6078-4cf4-8aed-ab87011301fa)
+- Video [2. Campos ocultos](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3e7dca32-3931-4763-8c80-ab8701163c45) [doc ShoppingCart.java](https://github.com/nicolasserrano/CS/blob/master/webapps/sesiones/WEB-INF/classes/ShoppingCart.java)
+- Video [3. Cookies](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=5eb80a66-afda-4e0c-8993-ab870118818d)
+- Video [4. Servlet ShowSession](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3c2b1c6a-0fc2-441a-816d-ab87011c9021) [doc ShowSession](https://github.com/nicolasserrano/CS/blob/master/webapps/sesiones/WEB-INF/classes/ShowSession.java)
+- Opcional Video [5. Documentación clase HttpSession](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=073be94a-a2e0-4ece-b648-ab87011ede73) [doc Java EE API](https://javaee.github.io/javaee-spec/javadocs/)
+- Opcional Video [6. Sesión en aplicación Northbrick](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=6f1cdea0-8e1c-492b-8e1f-ab8a00b6a300)
 
 ### Prácticas
 
@@ -359,9 +370,22 @@
 - Video [01. Uso de Drivers](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=cef95b50-ffa0-4f3e-b3bf-b29100acec04)
 - Video [02. ODBC y DSN](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b68ed7e3-267d-4804-904e-b29100f6cade)
 - Video [03. Arquitectura JDBC](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e6e94b35-6a8f-4389-bf0d-b29100f8fc8d)
-- Video [04. Ejemplo de Oracle](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=9e8bccdb-7929-4e29-aa3f-b29100f4a879) [doc Oracle JDBC](https://docs.oracle.com/javase/tutorial/jdbc/overview/index.html)
+- Video [04. Ejemplo de Oracle](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=9e8bccdb-7929-4e29-aa3f-b29100f4a879) [doc page](https://docs.oracle.com/javase/tutorial/jdbc/overview/index.html)
 - Video [05. basicJDBC](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=71925bdc-4848-464f-98cc-b29100f64591) [doc basicJDBC](https://github.com/nicolasserrano/CS/blob/master/Java/JDBC/basicJDBC.java)
 - Video [06. Ejemplo firstJDBC](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=85c344d9-c50a-4af0-9b72-b29100fa0b7f) [doc firstJDBC](https://github.com/nicolasserrano/CS/blob/master/Java/JDBC/firstJDBC)
+- Opcional Video [11. Jdbc-odbc sin DSN](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b48b39e9-781c-4d13-9e9f-b29100fb4f0b)
+- Opcional Video [12. UcanAccess driver](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b1751026-8c43-4d41-a2e5-b29100fbd186)
+- Opcional Video [13. API JDBC](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=655c44af-dcc7-443c-be13-b29100facf6f)
+- Opcional Video [14. Metadata](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=625e5120-9bf2-4241-add8-b29101019916)
 
 ### Prácticas
 
+## Otros recursos
+
+### Contenido
+
+### Materiales
+
+- Instalación en Mac [Tutorial instalación Mac](https://www.youtube.com/watch?v=Hmm9Q-T0oTo)
+
+### Prácticas
