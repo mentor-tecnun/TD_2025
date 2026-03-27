@@ -607,9 +607,13 @@ async function init() {
     appDiv.innerHTML = `<div class="content">${renderJSON(json)}</div>`;
 
     if (location.hash) {
-      const hash = decodeURIComponent(location.hash.slice(1)).toLowerCase().replace(/\s+/g, '-');
-      const el = document.getElementById(hash);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {  // doble rAF para asegurar que el layout está listo
+          const hash = decodeURIComponent(location.hash.slice(1)).toLowerCase().replace(/\s+/g, '-');
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
     }
 
     loadMsg.style.display = 'none';
