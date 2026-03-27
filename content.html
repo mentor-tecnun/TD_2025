@@ -530,8 +530,8 @@ function renderSection(section) {
     const practicasHTML = t.practicas.map(renderPracticaItem).join('');
 
     const topicId = t.topic.toLowerCase().replace(/\s+/g, '-');
-    html += `<tr>
-      <td id="${topicId}">${escHtml(t.topic)}</td>
+    html += `<tr id="${topicId}">
+      <td>${escHtml(t.topic)}</td>
       <td>${contenidoHTML || '<span style="color:var(--text-muted)">—</span>'}</td>
       <td>${materialesHTML || '<span style="color:var(--text-muted)">—</span>'}</td>
       <td>${practicasHTML || '<span style="color:var(--text-muted)">—</span>'}</td>
