@@ -278,11 +278,22 @@
 - Video [4. Condiciones en JavaScript](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=72e81449-e01b-4772-b539-ab9700a65831)
 - Video [5. Bucles en JavaScript](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=45cae973-875b-4858-96d7-ab9700a789c0)
 - Video [6. Vectores en JavaScript](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33caebdd-5482-400e-9c1b-ab9700a8ab81)
-- Opcional Video [7. Objetos en JavaScript](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=233e2018-ead2-4657-b7d2-ab9700a9f852)
-- Opcional Video [8. JavaScript en ficheros HTML](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=8f538e51-d1e3-4271-b38b-ab9700af34c7) [code secant.html](https://github.com/nicolasserrano/CS/blob/master/JavaScript/secant.html) [execute secant.html](https://nicolasserrano.github.io/CS/JavaScript/secant.html)
-- Opcional Video [9. Ejemplos JavaScript en página HTML](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=14966b44-c83c-46ae-b636-ab9700b19203) [examples code](https://github.com/nicolasserrano/CS/blob/master/JavaScript/JavaScript1.html) [examples execute](https://nicolasserrano.github.io/CS/JavaScript/JavaScript1.html)
-- Opcional Video [10. Ejemplos manipulación DOM](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e7106efb-9654-4e62-9aca-ab9700b39d08)
-- Opcional Video [11. JSON](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=69b3a602-fcbc-435d-a099-ab9700ba5248) [doc JSON](https://nicolasserrano.github.io/CS/JavaScript#json)
+
+### Prácticas
+
+## JavaScript y DOM
+
+### Contenido
+
+- JavaScript y DOM
+
+### Materiales
+
+- Video [7. Objetos en JavaScript](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=233e2018-ead2-4657-b7d2-ab9700a9f852)
+- Video [8. JavaScript en ficheros HTML](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=8f538e51-d1e3-4271-b38b-ab9700af34c7) [code secant.html](https://github.com/nicolasserrano/CS/blob/master/JavaScript/secant.html) [execute secant.html](https://nicolasserrano.github.io/CS/JavaScript/secant.html)
+- Video [9. Ejemplos JavaScript en página HTML](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=14966b44-c83c-46ae-b636-ab9700b19203) [examples code](https://github.com/nicolasserrano/CS/blob/master/JavaScript/JavaScript1.html) [examples execute](https://nicolasserrano.github.io/CS/JavaScript/JavaScript1.html)
+- Video [10. Ejemplos manipulación DOM](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e7106efb-9654-4e62-9aca-ab9700b39d08)
+- Video [11. JSON](https://unav.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=69b3a602-fcbc-435d-a099-ab9700ba5248) [doc JSON](https://nicolasserrano.github.io/CS/JavaScript#json)
 
 ### Prácticas
 
