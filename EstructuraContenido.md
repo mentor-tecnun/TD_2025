@@ -297,6 +297,17 @@
 
 ### Prácticas
 
+# SVG
+
+## Introducción a Excel
+
+### Contenido
+
+### Materiales
+
+- [SVG](https://www.nicolasserrano.com/CS/HTML/SVG.html)
+- [SVG Elements](https://www.nicolasserrano.com/CS/HTML/SVG_Elements.html)
+
 # Excel
 
 ## Introducción a Excel
