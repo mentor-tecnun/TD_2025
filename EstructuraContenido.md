@@ -299,7 +299,7 @@
 
 # SVG
 
-## Introducción a Excel
+## SVG
 
 ### Contenido
 
