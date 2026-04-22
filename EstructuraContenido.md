@@ -297,8 +297,6 @@
 
 ### Prácticas
 
-# SVG
-
 ## SVG
 
 ### Contenido
@@ -307,6 +305,7 @@
 
 - [SVG](https://www.nicolasserrano.com/CS/HTML/SVG.html)
 - [SVG Elements](https://www.nicolasserrano.com/CS/HTML/SVG_Elements.html)
+- [Inkscape tutorial](https://www.youtube.com/watch?v=TKpchk09Rqg&t=9s)
 
 # Excel
 
