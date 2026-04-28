@@ -314,8 +314,9 @@
 
 ### Materiales
 
-- [Charts.js](https://mentor-tecnun.github.io/TD_2025/chart)
 - [playground](https://mentor-tecnun.github.io/TD_2025/playground)
+- [Charts.js](https://mentor-tecnun.github.io/TD_2025/chart)
+- [D3.js](https://mentor-tecnun.github.io/TD_2025/D3.js)
 
 # Excel
 
