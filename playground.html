@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphs Playground</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #codeEditor {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            tab-size: 2;
+        }
+        .tab-active {
+            background-color: #334155;
+            border-bottom: 2px solid #3b82f6;
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl font-bold text-gray-800 italic">Graphs Playground</h1>
+        </header>
+
+        <section class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12 border-2 border-gray-200">
+            <!-- Pestañas de Selección -->
+            <div class="bg-slate-800 p-1 flex flex-wrap gap-1">
+                <button onclick="loadExample('canvas')" id="btn-canvas" class="px-4 py-2 text-white opacity-60 hover:opacity-100 transition-all text-sm font-bold">Canvas (plain JS)</button>
+                <button onclick="loadExample('svg')" id="btn-svg" class="px-4 py-2 text-white opacity-60 hover:opacity-100 transition-all text-sm font-bold">SVG (plain JS)</button>
+                <button onclick="loadExample('chartjs')" id="btn-chartjs" class="px-4 py-2 text-white opacity-60 hover:opacity-100 transition-all text-sm font-bold">Chart.js</button>
+                <button onclick="loadExample('d3js')" id="btn-d3js" class="px-4 py-2 text-white opacity-60 hover:opacity-100 transition-all text-sm font-bold">D3.js</button>
+            </div>
+
+            <div class="bg-slate-700 p-3 text-white flex justify-between items-center border-t border-slate-600">
+                <div class="flex items-center gap-2">
+                    <div id="statusDot" class="w-2 h-2 rounded-full bg-green-400"></div>
+                    <span id="statusIndicator" class="text-[10px] uppercase font-bold tracking-widest text-slate-300">Ready</span>
+                </div>
+                <button onclick="copyCode()" class="text-[10px] bg-slate-600 hover:bg-slate-500 px-3 py-1 rounded transition-colors uppercase font-bold">Copy Code</button>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+                <!-- Editor -->
+                <div class="p-4 bg-gray-900">
+                    <textarea id="codeEditor" spellcheck="false" class="w-full h-[600px] bg-gray-900 text-green-400 p-4 rounded outline-none resize-none text-xs leading-relaxed border border-gray-800 focus:border-blue-500 transition-colors"></textarea>
+                </div>
+                
+                <!-- Resultado -->
+                <div class="p-8 flex flex-col bg-white">
+                    <label class="text-gray-400 text-xs uppercase font-bold mb-4 block tracking-tighter">Preview (Iframe)</label>
+                    <div id="previewContainer" class="w-full h-full border border-gray-100 rounded-lg overflow-hidden min-h-[500px] bg-slate-50 relative">
+                        <!-- El iframe se recreará para asegurar limpieza total -->
+                        <iframe id="livePreview" class="w-full h-full border-none"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const editor = document.getElementById('codeEditor');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusDot = document.getElementById('statusDot');
+        const previewContainer = document.getElementById('previewContainer');
+
+        const examples = {
+            chartjs: `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"><\/script>
+  <style>
+    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #fff; }
+    .container { width: 90%; height: 80%; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <canvas id="myChart"></canvas>
+  </div>
+  <script>
+    window.onload = () => {
+      const ctx = document.getElementById('myChart');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['A', 'B', 'C', 'D', 'E'],
+          datasets: [{
+            label: 'Sales (Chart.js)',
+            data: [34, 12, 27, 54, 45],
+            backgroundColor: '#3b82f6',
+            borderRadius: 6
+          }]
+        },
+        options: { 
+          responsive: true, 
+          maintainAspectRatio: false,
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    };
+  <\/script>
+</body>
+</html>`,
+            d3js: `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://d3js.org/d3.v7.min.js"><\/script>
+  <style>
+    body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .bar { fill: #f97316; rx: 4; transition: fill 0.2s; }
+    .bar:hover { fill: #ea580c; }
+    text { font-size: 12px; fill: #475569; }
+    .axis-label { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div id="viz"></div>
+  <script>
+    window.onload = () => {
+      const data = [34, 12, 27, 54, 45];
+      const labels = ['A', 'B', 'C', 'D', 'E'];
+      const width = 400, height = 250, margin = 40;
+
+      const svg = d3.select("#viz").append("svg")
+        .attr("width", width).attr("height", height);
+
+      const x = d3.scaleBand()
+        .domain(labels)
+        .range([margin, width - margin])
+        .padding(0.2);
+
+      const y = d3.scaleLinear()
+        .domain([0, 60])
+        .range([height - margin, margin]);
+
+      svg.selectAll("rect")
+        .data(data).enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", (d, i) => x(labels[i]))
+        .attr("y", d => y(d))
+        .attr("width", x.bandwidth())
+        .attr("height", d => height - margin - y(d));
+
+      svg.append("g")
+        .attr("transform", \`translate(0, \${height - margin})\`)
+        .call(d3.axisBottom(x));
+
+      svg.append("g")
+        .attr("transform", \`translate(\${margin}, 0)\`)
+        .call(d3.axisLeft(y).ticks(5));
+    };
+  <\/script>
+</body>
+</html>`,
+            canvas: `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f8fafc; }
+    canvas { background: white; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <canvas id="cv" width="400" height="250"></canvas>
+  <script>
+    window.onload = () => {
+      const canvas = document.getElementById('cv');
+      const ctx = canvas.getContext('2d');
+      const data = [34, 12, 27, 54, 45];
+      const labels = ['A', 'B', 'C', 'D', 'E'];
+      const margin = 50;
+      const chartWidth = canvas.width - margin * 2;
+      const chartHeight = canvas.height - margin * 2;
+      const barWidth = 40;
+      const spacing = (chartWidth - (barWidth * data.length)) / (data.length - 1);
+
+      // Dibujar Barras
+      data.forEach((val, i) => {
+        const h = (val / 60) * chartHeight;
+        const x = margin + i * (barWidth + spacing);
+        const y = canvas.height - margin - h;
+        
+        ctx.fillStyle = '#10b981';
+        ctx.beginPath();
+        ctx.roundRect(x, y, barWidth, h, 4);
+        ctx.fill();
+
+        // Etiquetas
+        ctx.fillStyle = '#1e293b';
+        ctx.font = '12px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(val, x + barWidth/2, y - 10);
+        ctx.fillText(labels[i], x + barWidth/2, canvas.height - margin + 20);
+      });
+
+      // Ejes
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(margin, margin); 
+      ctx.lineTo(margin, canvas.height - margin);
+      ctx.lineTo(canvas.width - margin, canvas.height - margin);
+      ctx.stroke();
+    };
+  <\/script>
+</body>
+</html>`,
+            svg: `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #fff; }
+    .bar { fill: #ec4899; transition: transform 0.3s, fill 0.3s; cursor: pointer; }
+    .bar:hover { fill: #be185d; transform: scaleY(1.02); transform-origin: bottom; }
+    text { font-family: system-ui, sans-serif; font-size: 12px; fill: #64748b; }
+    .axis { stroke: #e2e8f0; stroke-width: 2; }
+  </style>
+</head>
+<body>
+  <svg width="400" height="250" viewBox="0 0 400 250">
+    <!-- Ejes -->
+    <line class="axis" x1="40" y1="40" x2="40" y2="210" />
+    <line class="axis" x1="40" y1="210" x2="360" y2="210" />
+    
+    <!-- Barras -->
+    <rect class="bar" x="60" y="96" width="40" height="114" rx="4" />
+    <rect class="bar" x="120" y="170" width="40" height="40" rx="4" />
+    <rect class="bar" x="180" y="120" width="40" height="90" rx="4" />
+    <rect class="bar" x="240" y="30" width="40" height="180" rx="4" />
+    <rect class="bar" x="300" y="60" width="40" height="150" rx="4" />
+
+    <!-- Etiquetas -->
+    <text x="75" y="230" text-anchor="middle">A</text>
+    <text x="135" y="230" text-anchor="middle">B</text>
+    <text x="195" y="230" text-anchor="middle">C</text>
+    <text x="255" y="230" text-anchor="middle">D</text>
+    <text x="315" y="230" text-anchor="middle">E</text>
+    
+    <text x="30" y="45" text-anchor="end">60</text>
+    <text x="30" y="215" text-anchor="end">0</text>
+  </svg>
+</body>
+</html>`
+        };
+
+        function loadExample(key) {
+            editor.value = examples[key];
+            
+            // UI de pestañas
+            document.querySelectorAll('button[id^="btn-"]').forEach(btn => {
+                btn.classList.remove('tab-active');
+            });
+            document.getElementById('btn-' + key).classList.add('tab-active');
+            
+            updatePreview();
+        }
+
+        let timeout;
+        function updatePreview() {
+            statusIndicator.innerText = "Processing...";
+            statusDot.className = "w-2 h-2 rounded-full bg-yellow-400";
+
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                try {
+                    // Re-crear el iframe para limpiar completamente el entorno JS
+                    const oldIframe = document.getElementById('livePreview');
+                    if (oldIframe) oldIframe.remove();
+                    
+                    const newIframe = document.createElement('iframe');
+                    newIframe.id = 'livePreview';
+                    newIframe.className = 'w-full h-full border-none';
+                    previewContainer.appendChild(newIframe);
+                    
+                    const content = editor.value;
+                    const doc = newIframe.contentDocument || newIframe.contentWindow.document;
+                    
+                    doc.open();
+                    doc.write(content);
+                    doc.close();
+                    
+                    statusIndicator.innerText = "Updated";
+                    statusDot.className = "w-2 h-2 rounded-full bg-green-400";
+                } catch (err) {
+                    console.error(err);
+                    statusIndicator.innerText = "Error in code";
+                    statusDot.className = "w-2 h-2 rounded-full bg-red-400";
+                }
+            }, 400);
+        }
+
+        function copyCode() {
+            editor.select();
+            document.execCommand('copy');
+            const originalText = statusIndicator.innerText;
+            statusIndicator.innerText = "¡Copied!";
+            setTimeout(() => statusIndicator.innerText = originalText, 2000);
+        }
+
+        editor.addEventListener('input', updatePreview);
+
+        // Iniciar con Chart.js por defecto
+        window.onload = () => loadExample('chartjs');
+    </script>
+</body>
+</html>
