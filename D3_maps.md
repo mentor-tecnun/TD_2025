@@ -351,7 +351,7 @@ const svg=d3.select('#g').append('svg').attr('width',W).attr('height',H)
 d3.json('https://unpkg.com/es-atlas@0.5.0/es/provinces.json').then(es=>{
   const all=topojson.feature(es,es.objects.provinces);
   const euskadi={type:'FeatureCollection',
-    features:all.features.filter(d=>codigos.includes(d.properties.cod_prov))};
+    features:all.features.filter(d=>codigos.includes(d.id))};
   const proj=d3.geoMercator().fitExtent([[15,10],[W-15,H-10]],euskadi);
   const path=d3.geoPath(proj);
   // Fondo: resto de provincias en gris
@@ -359,14 +359,14 @@ d3.json('https://unpkg.com/es-atlas@0.5.0/es/provinces.json').then(es=>{
     .attr('d',path).attr('fill','#dde4ea').attr('stroke','white').attr('stroke-width',0.3);
   // Provincias vascas en color
   svg.append('g').selectAll('path').data(euskadi.features).join('path')
-    .attr('d',path).attr('fill',d=>colores[d.properties.cod_prov])
+    .attr('d',path).attr('fill',d=>colores[d.id])
     .attr('stroke','white').attr('stroke-width',1.5);
   // Etiquetas en el centroide
   svg.selectAll('text').data(euskadi.features).join('text')
     .attr('x',d=>path.centroid(d)[0]).attr('y',d=>path.centroid(d)[1])
     .attr('text-anchor','middle').attr('font-size','11px')
     .attr('fill','white').attr('font-weight','bold').attr('pointer-events','none')
-    .text(d=>noms[d.properties.cod_prov]);
+    .text(d=>noms[d.id]);
 });
 </script></textarea>
 
