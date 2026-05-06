@@ -317,6 +317,7 @@
 - [playground](https://mentor-tecnun.github.io/TD_2025/playground)
 - [Charts.js](https://mentor-tecnun.github.io/TD_2025/chart)
 - [D3.js](https://mentor-tecnun.github.io/TD_2025/D3.js)
+- [D3 maps](https://mentor-tecnun.github.io/TD_2025/D3_maps)
 
 # Excel
 
