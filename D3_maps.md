@@ -43,8 +43,7 @@ style: |
 # D3.js
 ## Mapas y Cartografía con SVG en el navegador
 
-Visualización geográfica con **GeoJSON**, **proyecciones** y **path generators**:
-del mapa del mundo al municipio del País Vasco.
+Visualización geográfica con **GeoJSON**, **proyecciones** y **path generators**.
 
 ---
 
@@ -335,7 +334,7 @@ d3.json('https://unpkg.com/es-atlas@0.5.0/es/autonomous_regions.json').then(es=>
 
 ---
 
-## Ejemplo: País Vasco — Las tres provincias
+## Ejemplo: País Vasco
 
 <textarea id="code-euskadi" oninput="runExample('code-euskadi','preview-euskadi')">
 <div id="g"></div>
@@ -425,18 +424,16 @@ d3.json('https://unpkg.com/es-atlas@0.5.0/es/provinces.json').then(es=>{
 const ciudades=[
   {n:'Bilbao',lng:-2.935,lat:43.263,pop:346},
   {n:'Donostia',lng:-1.981,lat:43.318,pop:187},
-  {n:'Gasteiz',lng:-2.673,lat:42.849,pop:249},
-  {n:'Iruñea',lng:-1.646,lat:42.816,pop:202},
-  {n:'Baiona',lng:-1.474,lat:43.493,pop:46},
+  {n:'Gasteiz',lng:-2.673,lat:42.849,pop:249}
 ];
-const codigos=['01','20','48','31'];
+const codigos=['01','20','48'];
 const W=380,H=178;
 const svg=d3.select('#g').append('svg').attr('width',W).attr('height',H)
   .style('background','#eaf4f8');
 d3.json('https://unpkg.com/es-atlas@0.5.0/es/provinces.json').then(es=>{
   const all=topojson.feature(es,es.objects.provinces);
   const region={type:'FeatureCollection',
-    features:all.features.filter(d=>codigos.includes(d.properties.cod_prov))};
+    features:all.features.filter(d=>codigos.includes(d.id))};
   const proj=d3.geoMercator().fitExtent([[10,10],[W-10,H-10]],region);
   const path=d3.geoPath(proj);
   svg.append('g').selectAll('path').data(all.features).join('path')
