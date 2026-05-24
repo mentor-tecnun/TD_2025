@@ -232,3 +232,309 @@ siguen las reglas matemáticas de la naturaleza."
 
 ---
 Fin.
+
+
+# Simuladores Visuales de las Leyes de Kepler
+
+## Primera Ley — Órbitas Elípticas
+
+> Los planetas describen órbitas elípticas con el Sol en uno de los focos.
+
+<div align="center">
+
+<svg id="kepler1" width="500" height="300" viewBox="0 0 500 300">
+
+<ellipse
+cx="250"
+cy="150"
+rx="180"
+ry="100"
+fill="none"
+stroke="#4A90E2"
+stroke-width="3"/>
+
+<circle
+cx="180"
+cy="150"
+r="10"
+fill="orange"/>
+
+<circle
+id="planet1"
+cx="430"
+cy="150"
+r="7"
+fill="steelblue"/>
+
+<text x="160" y="135">☉ Sol</text>
+
+</svg>
+
+</div>
+
+<script>
+
+(function(){
+
+const p=document.getElementById("planet1");
+
+let t=0;
+
+function animate(){
+
+t+=0.01;
+
+const a=180;
+const b=100;
+
+const x=250+a*Math.cos(t);
+const y=150+b*Math.sin(t);
+
+p.setAttribute("cx",x);
+p.setAttribute("cy",y);
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
+})();
+
+</script>
+
+---
+
+## Segunda Ley — Áreas Iguales en Tiempos Iguales
+
+> El radio Sol-planeta barre áreas iguales en tiempos iguales.
+
+<div align="center">
+
+<svg id="kepler2" width="500" height="320">
+
+<ellipse
+cx="250"
+cy="160"
+rx="180"
+ry="100"
+fill="none"
+stroke="#4A90E2"
+stroke-width="3"/>
+
+<circle
+cx="180"
+cy="160"
+r="10"
+fill="orange"/>
+
+<polygon
+id="sector"
+fill="rgba(100,150,255,0.4)"
+stroke="none"/>
+
+<line
+id="radius"
+stroke="gray"
+stroke-width="2"/>
+
+<circle
+id="planet2"
+r="7"
+fill="steelblue"/>
+
+</svg>
+
+</div>
+
+<script>
+
+(function(){
+
+const p=document.getElementById("planet2");
+const line=document.getElementById("radius");
+const sector=document.getElementById("sector");
+
+let theta=0;
+
+function orbitSpeed(t){
+
+return 0.012*(1+0.55*Math.cos(t));
+
+}
+
+function frame(){
+
+theta+=orbitSpeed(theta);
+
+const a=180;
+const b=100;
+
+const px=250+a*Math.cos(theta);
+const py=160+b*Math.sin(theta);
+
+p.setAttribute("cx",px);
+p.setAttribute("cy",py);
+
+line.setAttribute(
+"x1",180);
+
+line.setAttribute(
+"y1",160);
+
+line.setAttribute(
+"x2",px);
+
+line.setAttribute(
+"y2",py);
+
+const prev=theta-0.45;
+
+const x0=250+a*Math.cos(prev);
+const y0=160+b*Math.sin(prev);
+
+sector.setAttribute(
+"points",
+`
+180,160
+${x0},${y0}
+${px},${py}
+`
+);
+
+requestAnimationFrame(frame);
+
+}
+
+frame();
+
+})();
+
+</script>
+
+---
+
+## Tercera Ley — Distancia y Período Orbital
+
+> Cuanto más lejos está un planeta del Sol, más tiempo tarda en completar una órbita.
+
+<div align="center">
+
+<svg width="600" height="350">
+
+<circle
+cx="300"
+cy="175"
+r="12"
+fill="orange"/>
+
+<circle
+cx="300"
+cy="175"
+r="90"
+fill="none"
+stroke="#66AA66"
+stroke-width="2"/>
+
+<circle
+cx="300"
+cy="175"
+r="150"
+fill="none"
+stroke="#4A90E2"
+stroke-width="2"/>
+
+<circle
+id="inner"
+r="7"
+fill="green"/>
+
+<circle
+id="outer"
+r="7"
+fill="steelblue"/>
+
+<text x="380" y="90">
+Planeta cercano
+</text>
+
+<text x="450" y="175">
+Planeta lejano
+</text>
+
+</svg>
+
+</div>
+
+<script>
+
+(function(){
+
+const inner=
+document.getElementById("inner");
+
+const outer=
+document.getElementById("outer");
+
+let t1=0;
+let t2=0;
+
+function animate(){
+
+t1+=0.03;
+
+t2+=0.015;
+
+inner.setAttribute(
+"cx",
+300+90*Math.cos(t1)
+);
+
+inner.setAttribute(
+"cy",
+175+90*Math.sin(t1)
+);
+
+outer.setAttribute(
+"cx",
+300+150*Math.cos(t2)
+);
+
+outer.setAttribute(
+"cy",
+175+150*Math.sin(t2)
+);
+
+requestAnimationFrame(
+animate
+);
+
+}
+
+animate();
+
+})();
+
+</script>
+
+---
+
+## Qué observar
+
+### Primera Ley
+- La órbita es una elipse.
+- El Sol no está en el centro.
+
+### Segunda Ley
+- Cerca del Sol el planeta acelera.
+- Lejos del Sol se mueve más despacio.
+- El área barrida permanece equivalente.
+
+### Tercera Ley
+- El planeta interior completa más órbitas.
+- El exterior tarda más.
+- Se visualiza la relación:
+
+\\[
+T^2 \propto a^3
+\\]
