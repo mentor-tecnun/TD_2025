@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las Leyes de Kepler - Simulador Interactivo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- MathJax para renderizar ecuaciones matemáticas complejas de forma limpia -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🪐</span>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-sky-400 to-emerald-400">
+                        KeplerLab
+                    </h1>
+                    <p class="text-xs text-slate-400">Simulador de Mecánica Celeste y Leyes de Kepler</p>
+                </div>
+            </div>
+            
+            <!-- Tabs -->
+            <nav class="flex space-x-1 bg-slate-900 p-1 rounded-xl border border-slate-800/80">
+                <button onclick="switchTab('ley1')" id="tab-ley1" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg bg-indigo-600 text-white transition-all">
+                    1ª Ley: Órbitas
+                </button>
+                <button onclick="switchTab('ley2')" id="tab-ley2" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition-all">
+                    2ª Ley: Áreas
+                </button>
+                <button onclick="switchTab('ley3')" id="tab-ley3" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg text-slate-400 hover:text-white transition-all">
+                    3ª Ley: Periodos
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-8">
+        
+        <!-- SECTION 1ª LEY -->
+        <section id="content-ley1" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Teoria -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
+                    <span>1ª Ley de Kepler</span> • <span>Ley de las Órbitas</span>
+                </div>
+                <h2 class="text-3xl font-extrabold text-white tracking-tight">Elipses en el Cosmos</h2>
+                <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+                    Johannes Kepler descubrió que el paradigma de los círculos perfectos no describía la realidad de los movimientos planetarios. En su lugar, postuló:
+                </p>
+                <blockquote class="border-l-4 border-indigo-500 bg-indigo-950/20 p-4 rounded-r-xl italic text-slate-200">
+                    "Todos los planetas se desplazan alrededor del Sol describiendo órbitas elípticas. El Sol se encuentra en uno de los focos de la elipse."
+                </blockquote>
+                
+                <div class="space-y-4 bg-slate-900/50 border border-slate-800 p-5 rounded-2xl">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        <span class="text-indigo-400">💡</span> Conceptos Clave
+                    </h3>
+                    <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                        <li class="flex gap-2">
+                            <strong class="text-indigo-300 min-w-[90px]">Excentricidad:</strong>
+                            <span>Mide qué tan estirada está la elipse ($e$). Si $e = 0$, es un círculo perfecto.</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <strong class="text-indigo-300 min-w-[90px]">Perihelio:</strong>
+                            <span>Punto de la órbita donde el planeta está más cerca del Sol.</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <strong class="text-indigo-300 min-w-[90px]">Afelio:</strong>
+                            <span>Punto de la órbita donde el planeta está más alejado del Sol.</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Controles -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-5">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        🔧 Parámetros de Simulación
+                    </h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-400">Excentricidad ($e$):</span>
+                            <span id="val-ecc1" class="text-indigo-400 font-bold">0.50</span>
+                        </div>
+                        <input type="range" id="ecc1" min="0" max="0.85" step="0.01" value="0.50" class="w-full accent-indigo-500 bg-slate-850 h-2 rounded-lg cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulador -->
+            <div class="lg:col-span-7 flex flex-col gap-4">
+                <div class="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden relative shadow-2xl">
+                    <div class="absolute top-4 left-4 z-10 bg-slate-900/80 border border-slate-800 px-3 py-1.5 rounded-full text-xs text-slate-300 backdrop-blur-sm">
+                        Simulación de Órbita Elíptica
+                    </div>
+                    <!-- Lienzo SVG interactivo -->
+                    <svg id="canvas-ley1" class="w-full h-[350px] sm:h-[450px]" viewBox="0 0 600 400">
+                        <!-- Estrellas de fondo -->
+                        <g id="stars-group"></g>
+                        <!-- Eje principal -->
+                        <line x1="50" y1="200" x2="550" y2="200" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="6,4" />
+                        <line x1="300" y1="50" x2="300" y2="350" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="6,4" />
+                        
+                        <!-- Órbita elíptica dinámica -->
+                        <ellipse id="ellipse-orbit" cx="300" cy="200" rx="180" ry="155" fill="none" stroke="#6366f1" stroke-width="2.5" />
+                        
+                        <!-- Focos -->
+                        <circle id="foco2" cx="390" cy="200" r="5" fill="#475569" />
+                        <text id="txt-foco2" x="390" y="185" fill="#94a3b8" font-size="11" text-anchor="middle">Foco 2</text>
+                        
+                        <!-- El Sol (Foco 1) -->
+                        <circle id="sol-brillo" cx="210" cy="200" r="24" fill="#f59e0b" opacity="0.2" />
+                        <circle id="sol-core" cx="210" cy="200" r="14" fill="#fbbf24" />
+                        <text x="210" y="170" fill="#f59e0b" font-size="12" font-weight="bold" text-anchor="middle">☀️ Sol (Foco 1)</text>
+                        
+                        <!-- Línea de Radio Vector (Planeta - Sol) -->
+                        <line id="radio-vector" x1="210" y1="200" x2="300" y2="200" stroke="#fbbf24" stroke-width="1.5" stroke-opacity="0.5" />
+                        
+                        <!-- Planeta -->
+                        <circle id="planeta" cx="300" cy="200" r="9" fill="#0ea5e9" stroke="#ffffff" stroke-width="1.5" />
+                        
+                        <!-- Etiquetas de Perihelio y Afelio -->
+                        <g id="labels-grupo">
+                            <text id="lbl-perihelio" x="110" y="235" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Perihelio</text>
+                            <text id="lbl-afelio" x="490" y="235" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Afelio</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+                        <span class="text-xs text-slate-400 block">Semieje Mayor (a)</span>
+                        <span class="text-lg font-bold text-white">1.00 <span class="text-xs font-normal text-slate-500">UA</span></span>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+                        <span class="text-xs text-slate-400 block">Semieje Menor (b)</span>
+                        <span id="info-b" class="text-lg font-bold text-white">0.86 <span class="text-xs font-normal text-slate-500">UA</span></span>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+                        <span class="text-xs text-slate-400 block">Distancia Focal (c)</span>
+                        <span id="info-c" class="text-lg font-bold text-white">0.50 <span class="text-xs font-normal text-slate-500">UA</span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2ª LEY -->
+        <section id="content-ley2" class="tab-content hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Teoria -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+                    <span>2ª Ley de Kepler</span> • <span>Ley de las Áreas</span>
+                </div>
+                <h2 class="text-3xl font-extrabold text-white tracking-tight">Velocidad y Áreas Iguales</h2>
+                <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+                    La segunda ley describe el cambio en la velocidad orbital del planeta: el planeta acelera en el perihelio (más cerca del sol) y desacelera en el afelio (más lejos del sol).
+                </p>
+                <blockquote class="border-l-4 border-emerald-500 bg-emerald-950/20 p-4 rounded-r-xl italic text-slate-200">
+                    "El radio vector que une a un planeta con el Sol barre áreas iguales en tiempos iguales."
+                </blockquote>
+                
+                <div class="space-y-4 bg-slate-900/50 border border-slate-800 p-5 rounded-2xl text-slate-300">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        <span class="text-emerald-400">⚖️</span> Conservación del Momento Angular
+                    </h3>
+                    <p class="text-xs sm:text-sm">
+                        Físicamente, esto se debe a la conservación del momento angular. Como la fuerza de gravedad apunta siempre hacia el Sol, no ejerce torque sobre el planeta:
+                    </p>
+                    <div class="bg-slate-950 p-3 rounded-lg text-center text-sm font-semibold border border-slate-800">
+                        $$L = m \cdot v \cdot r \cdot \sin(\theta) = \text{Constante}$$
+                    </div>
+                </div>
+
+                <!-- Controles -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        🔧 Controles de Simulación
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button id="btn-play-ley2" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 font-bold text-xs rounded-xl flex items-center gap-2 transition-all">
+                            <span>⏸️</span> Pausar
+                        </button>
+                        <button id="btn-sweep-ley2" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 font-bold text-xs rounded-xl flex items-center gap-2 border border-slate-700 transition-all">
+                            <span>🧹</span> Resetear Áreas
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulador -->
+            <div class="lg:col-span-7 flex flex-col gap-4">
+                <div class="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden relative shadow-2xl">
+                    <div class="absolute top-4 left-4 z-10 bg-slate-900/80 border border-slate-800 px-3 py-1.5 rounded-full text-xs text-slate-300 backdrop-blur-sm">
+                        Simulador de Áreas Barridas (Tiempo constante \( \Delta t \))
+                    </div>
+                    <svg id="canvas-ley2" class="w-full h-[350px] sm:h-[450px]" viewBox="0 0 600 400">
+                        <!-- Estrellas de fondo -->
+                        <g id="stars-group2"></g>
+                        <!-- Sectores barridos -->
+                        <g id="sectors-layer"></g>
+                        <!-- Órbita base -->
+                        <ellipse cx="300" cy="200" rx="180" ry="120" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="4,4" />
+                        
+                        <!-- Sol (en Foco 1, e=0.6) -->
+                        <circle cx="165" cy="200" r="14" fill="#fbbf24" />
+                        <circle cx="165" cy="200" r="22" fill="#f59e0b" opacity="0.15" />
+                        <text x="165" y="170" fill="#f59e0b" font-size="12" font-weight="bold" text-anchor="middle">Sol</text>
+                        
+                        <!-- Radio vector actual -->
+                        <line id="radio-vector2" x1="165" y1="200" x2="300" y2="200" stroke="#34d399" stroke-width="1.5" />
+                        
+                        <!-- Planeta en movimiento -->
+                        <circle id="planeta2" cx="300" cy="200" r="9" fill="#10b981" stroke="#ffffff" stroke-width="1.5" />
+                        
+                        <!-- Indicadores de Velocidad -->
+                        <line id="velocity-vector" x1="300" y1="200" x2="300" y2="200" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrow-red)" />
+                        
+                        <!-- Marcadores de Definição -->
+                        <defs>
+                            <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400 block">Velocidad Instantánea</span>
+                            <span id="info-vel" class="text-lg font-bold text-white">29.8 <span class="text-xs font-normal text-slate-500">km/s</span></span>
+                        </div>
+                        <span id="speed-indicator" class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/25">Normal</span>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl">
+                        <span class="text-xs text-slate-400 block">Relación de Áreas</span>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-lg font-bold text-emerald-400">Área A = Área B</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3ª LEY -->
+        <section id="content-ley3" class="tab-content hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Teoria -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-semibold">
+                    <span>3ª Ley de Kepler</span> • <span>Ley de los Periodos</span>
+                </div>
+                <h2 class="text-3xl font-extrabold text-white tracking-tight">Armonía de Mundos</h2>
+                <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+                    Establece que los planetas que se encuentran más lejos del Sol tardan mucho más tiempo en completar sus órbitas que aquellos que están más cerca.
+                </p>
+                <blockquote class="border-l-4 border-sky-500 bg-sky-950/20 p-4 rounded-r-xl italic text-slate-200">
+                    "El cuadrado del período orbital es directamente proporcional al cubo de la longitud del semieje mayor de su órbita."
+                </blockquote>
+
+                <div class="bg-slate-900/50 border border-slate-800 p-5 rounded-2xl text-slate-300 space-y-3">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        📊 Formulación Sencilla
+                    </h3>
+                    <p class="text-xs sm:text-sm">
+                        Si medimos el período $T$ en <strong>años terrestres</strong> y la distancia orbital $a$ en <strong>Unidades Astronómicas (UA)</strong>, la constante de proporcionalidad es 1:
+                    </p>
+                    <div class="bg-slate-950 p-4 rounded-lg text-center font-bold text-lg border border-slate-800">
+                        $$T^2 = a^3$$
+                    </div>
+                </div>
+
+                <!-- Selector de Planetas Preestablecidos -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-4">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        🌌 Planetas del Sistema Solar
+                    </h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="setPlanet(0.387)" class="p-2.5 bg-slate-850 hover:bg-slate-800 text-xs rounded-xl font-semibold border border-slate-800 text-slate-300 transition-all">Mercurio</button>
+                        <button onclick="setPlanet(0.723)" class="p-2.5 bg-slate-850 hover:bg-slate-800 text-xs rounded-xl font-semibold border border-slate-800 text-slate-300 transition-all">Venus</button>
+                        <button onclick="setPlanet(1.000)" class="p-2.5 bg-slate-850 hover:bg-slate-800 text-xs rounded-xl font-semibold border border-slate-800 text-slate-300 transition-all">Tierra</button>
+                        <button onclick="setPlanet(1.524)" class="p-2.5 bg-slate-850 hover:bg-slate-800 text-xs rounded-xl font-semibold border border-slate-800 text-slate-300 transition-all">Marte</button>
+                        <button onclick="setPlanet(2.5)" class="p-2.5 bg-slate-850 hover:bg-slate-800 text-xs rounded-xl font-semibold border border-slate-800 text-slate-300 transition-all">Asteroide</button>
+                        <button onclick="setPlanet(4.0)" class="p-2.5 bg-slate-850 hover:bg-slate-800 text-xs rounded-xl font-semibold border border-slate-800 text-slate-300 transition-all">Joviano</button>
+                    </div>
+                    <div class="space-y-2 pt-2">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-400">Modificar Semieje Mayor ($a$):</span>
+                            <span id="val-a3" class="text-sky-400 font-bold">1.00 UA</span>
+                        </div>
+                        <input type="range" id="semia3" min="0.3" max="5.2" step="0.05" value="1.00" class="w-full accent-sky-500 bg-slate-850 h-2 rounded-lg cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulador -->
+            <div class="lg:col-span-7 flex flex-col gap-4">
+                <div class="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden relative shadow-2xl">
+                    <div class="absolute top-4 left-4 z-10 bg-slate-900/80 border border-slate-800 px-3 py-1.5 rounded-full text-xs text-slate-300 backdrop-blur-sm">
+                        Órbitas en Escala de Distancia
+                    </div>
+                    <svg id="canvas-ley3" class="w-full h-[350px] sm:h-[450px]" viewBox="0 0 600 400">
+                        <g id="stars-group3"></g>
+                        <!-- Círculos de referencia orbital (para el Sol central) -->
+                        <circle cx="300" cy="200" r="40" fill="none" stroke="#1e293b" stroke-width="1" />
+                        <circle cx="300" cy="200" r="80" fill="none" stroke="#1e293b" stroke-width="1" />
+                        <circle cx="300" cy="200" r="140" fill="none" stroke="#1e293b" stroke-width="1" />
+                        <circle cx="300" cy="200" r="220" fill="none" stroke="#1e293b" stroke-width="1" />
+                        
+                        <!-- El Sol (Foco Central en escala circular) -->
+                        <circle cx="300" cy="200" r="12" fill="#fbbf24" />
+                        <circle cx="300" cy="200" r="18" fill="#f59e0b" opacity="0.2" />
+
+                        <!-- Órbita Dinámica Actual -->
+                        <circle id="orbit-actual" cx="300" cy="200" r="100" fill="none" stroke="#38bdf8" stroke-width="2" />
+                        <!-- Planeta Dinámico -->
+                        <circle id="planeta-actual" cx="400" cy="200" r="8" fill="#0ea5e9" stroke="#ffffff" stroke-width="1" />
+                        
+                        <!-- Planeta de Referencia (La Tierra: a=1.00, r=100 en píxeles) -->
+                        <circle cx="300" cy="200" r="100" fill="none" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" />
+                        <circle id="planeta-ref" cx="400" cy="200" r="6" fill="#64748b" opacity="0.6" />
+                        <text x="400" y="220" fill="#64748b" font-size="9" text-anchor="middle">Tierra (Ref)</text>
+                    </svg>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+                        <span class="text-xs text-slate-400 block">Semieje $a$</span>
+                        <span id="stat-a" class="text-base font-bold text-white">1.00 <span class="text-xs font-normal text-slate-500">UA</span></span>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+                        <span class="text-xs text-slate-400 block">Periodo Calculado $T$</span>
+                        <span id="stat-t" class="text-base font-bold text-sky-400">1.00 <span class="text-xs font-normal text-slate-500">años</span></span>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+                        <span class="text-xs text-slate-400 block">Cubo $a^3$</span>
+                        <span id="stat-a3" class="text-base font-bold text-white">1.00</span>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center">
+                        <span class="text-xs text-slate-400 block">Cuadrado $T^2$</span>
+                        <span id="stat-t2" class="text-base font-bold text-sky-400">1.00</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p>© 2026 KeplerLab. Hecho con HTML interactivo para aprendizaje de física celeste.</p>
+            <p>Usa la barra superior para cambiar de ley de simulación.</p>
+        </div>
+    </footer>
+
+    <!-- LOGIC / JAVASCRIPT -->
+    <script>
+        // --- SISTEMA DE PESTAÑAS (TABS) ---
+        function switchTab(tabId) {
+            // Esconder todas las secciones
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Quitar estilos activos a botones
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('text-slate-400');
+            });
+
+            // Mostrar sección activa
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+            
+            // Asignar color dinámico de pestaña activa según la Ley
+            const activeBtn = document.getElementById('tab-' + tabId);
+            if(tabId === 'ley1') {
+                activeBtn.classList.add('bg-indigo-600', 'text-white');
+            } else if(tabId === 'ley2') {
+                activeBtn.classList.add('bg-emerald-600', 'text-white');
+            } else if(tabId === 'ley3') {
+                activeBtn.classList.add('bg-sky-600', 'text-white');
+            }
+            activeBtn.classList.remove('text-slate-400');
+        }
+
+        // --- SISTEMA DE ESTRELLAS DE FONDO ---
+        function generateStars() {
+            const starsGroup1 = document.getElementById('stars-group');
+            const starsGroup2 = document.getElementById('stars-group2');
+            const starsGroup3 = document.getElementById('stars-group3');
+            
+            let html = '';
+            for (let i = 0; i < 60; i++) {
+                const x = Math.random() * 600;
+                const y = Math.random() * 400;
+                const r = Math.random() * 1.2;
+                const opacity = Math.random() * 0.7 + 0.3;
+                html += `<circle cx="${x}" cy="${y}" r="${r}" fill="#ffffff" opacity="${opacity}" />`;
+            }
+            starsGroup1.innerHTML = html;
+            starsGroup2.innerHTML = html;
+            starsGroup3.innerHTML = html;
+        }
+        generateStars();
+
+        // ==========================================
+        // SIMULACIÓN DE LA 1ª LEY (ÓRBITAS ELÍPTICAS)
+        // ==========================================
+        const eccSlider1 = document.getElementById('ecc1');
+        const valEcc1 = document.getElementById('val-ecc1');
+        const ellipseOrbit = document.getElementById('ellipse-orbit');
+        const foco2 = document.getElementById('foco2');
+        const txtFoco2 = document.getElementById('txt-foco2');
+        const solBrillo = document.getElementById('sol-brillo');
+        const solCore = document.getElementById('sol-core');
+        const planeta = document.getElementById('planeta');
+        const radioVector = document.getElementById('radio-vector');
+        const infoB = document.getElementById('info-b');
+        const infoC = document.getElementById('info-c');
+        const lblPerihelio = document.getElementById('lbl-perihelio');
+        const lblAfelio = document.getElementById('lbl-afelio');
+
+        let angle1 = 0;
+        const semiMajor_a = 180; // Constante visual en px para 'a'
+
+        function updateLey1() {
+            const e = parseFloat(eccSlider1.value);
+            valEcc1.innerText = e.toFixed(2);
+
+            // Calcular semieje menor b = a * sqrt(1 - e^2)
+            const b = semiMajor_a * Math.sqrt(1 - (e * e));
+            
+            // Distancia del centro al foco: c = a * e
+            const c = semiMajor_a * e;
+
+            // Actualizar la órbita (elipse)
+            // El centro de la órbita siempre estará en el centro del canvas (300, 200)
+            ellipseOrbit.setAttribute('rx', semiMajor_a);
+            ellipseOrbit.setAttribute('ry', b);
+
+            // Foco 1 (Sol) posicionado en cx = 300 - c
+            const solX = 300 - c;
+            solBrillo.setAttribute('cx', solX);
+            solCore.setAttribute('cx', solX);
+
+            // Foco 2 posicionado en cx = 300 + c
+            const foco2X = 300 + c;
+            foco2.setAttribute('cx', foco2X);
+            txtFoco2.setAttribute('x', foco2X);
+
+            // Actualizar datos del planeta en unidades astronómicas normalizadas (donde a = 1.0)
+            infoB.innerHTML = `${Math.sqrt(1 - e * e).toFixed(2)} <span class="text-xs font-normal text-slate-500">UA</span>`;
+            infoC.innerHTML = `${e.toFixed(2)} <span class="text-xs font-normal text-slate-500">UA</span>`;
+
+            // Colocar etiquetas en los extremos reales
+            lblPerihelio.setAttribute('x', 300 - semiMajor_a);
+            lblAfelio.setAttribute('x', 300 + semiMajor_a);
+        }
+
+        function animarLey1() {
+            const e = parseFloat(eccSlider1.value);
+            const b = semiMajor_a * Math.sqrt(1 - (e * e));
+            const c = semiMajor_a * e;
+            const solX = 300 - c;
+
+            // Segunda ley de Kepler dice que el movimiento de ángulo no es lineal, 
+            // pero para esta primera aproximación visual animamos de acuerdo a la ecuación de Kepler.
+            // Para dar la ilusión de cambio de velocidad, escalamos el paso angular basándonos en la distancia al foco
+            const x_planeta_rel = semiMajor_a * Math.cos(angle1);
+            const y_planeta_rel = b * Math.sin(angle1);
+
+            const px = 300 + x_planeta_rel;
+            const py = 200 + y_planeta_rel;
+
+            // Calcular distancia al Sol para modular velocidad
+            const dx = px - solX;
+            const dy = py - 200;
+            const r = Math.sqrt(dx*dx + dy*dy);
+
+            // El paso angular es inversamente proporcional a r^2 (conservación de momento angular)
+            const speedMultiplier = 14000 / (r * r);
+            angle1 += 0.015 * speedMultiplier;
+
+            // Posicionar Planeta
+            planeta.setAttribute('cx', px);
+            planeta.setAttribute('cy', py);
+
+            // Posicionar radio vector
+            radioVector.setAttribute('x1', solX);
+            radioVector.setAttribute('y1', 200);
+            radioVector.setAttribute('x2', px);
+            radioVector.setAttribute('y2', py);
+
+            requestAnimationFrame(animarLey1);
+        }
+
+        eccSlider1.addEventListener('input', updateLey1);
+        updateLey1();
+        animarLey1();
+
+
+        // ==========================================
+        // SIMULACIÓN DE LA 2ª LEY (LEY DE LAS ÁREAS)
+        // ==========================================
+        const planeta2 = document.getElementById('planeta2');
+        const radioVector2 = document.getElementById('radio-vector2');
+        const velVector = document.getElementById('velocity-vector');
+        const sectorsLayer = document.getElementById('sectors-layer');
+        const playBtn2 = document.getElementById('btn-play-ley2');
+        const sweepBtn2 = document.getElementById('btn-sweep-ley2');
+        const infoVel = document.getElementById('info-vel');
+        const speedIndicator = document.getElementById('speed-indicator');
+
+        let isPlaying2 = true;
+        let angle2 = 0;
+        const a2 = 180; // semieje mayor
+        const e2 = 0.55; // excentricidad fija y pronunciada para ver la ley de áreas claramente
+        const b2 = a2 * Math.sqrt(1 - (e2 * e2));
+        const c2 = a2 * e2;
+        const solX2 = 300 - c2; // foco izquierdo
+
+        // Guardamos sectores históricos dibujados
+        let savedSectors = [];
+        let ticksCounter = 0;
+        let lastSectorsUpdate = 0;
+
+        function runLey2() {
+            if (!isPlaying2) return;
+
+            // Coordenadas actuales del planeta
+            const px = 300 + a2 * Math.cos(angle2);
+            const py = 200 + b2 * Math.sin(angle2);
+
+            // Distancia al Sol
+            const dx = px - solX2;
+            const dy = py - 200;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+
+            // Modulación de velocidad (Momento Angular)
+            const step = 20000 / (dist * dist);
+            angle2 += 0.0006 * step;
+
+            // Posicionar el planeta y el radio vector
+            planeta2.setAttribute('cx', px);
+            planeta2.setAttribute('cy', py);
+            radioVector2.setAttribute('x1', solX2);
+            radioVector2.setAttribute('y1', 200);
+            radioVector2.setAttribute('x2', px);
+            radioVector2.setAttribute('y2', py);
+
+            // Calcular velocidad física simulada (km/s en escala)
+            // Velocidad orbital en perihelio ronda los 38 km/s, en afelio los 19 km/s para esta órbita
+            const physicalSpeed = (1 / dist) * 6500;
+            infoVel.innerHTML = `${physicalSpeed.toFixed(1)} <span class="text-xs font-normal text-slate-500">km/s</span>`;
+
+            // Actualizar etiqueta cualitativa de velocidad
+            if (physicalSpeed > 32) {
+                speedIndicator.innerText = "Alta velocidad (Perihelio)";
+                speedIndicator.className = "px-2.5 py-1 rounded-full text-xs font-bold bg-red-500/15 text-red-400 border border-red-500/25";
+            } else if (physicalSpeed < 18) {
+                speedIndicator.innerText = "Baja velocidad (Afelio)";
+                speedIndicator.className = "px-2.5 py-1 rounded-full text-xs font-bold bg-blue-500/15 text-blue-400 border border-blue-500/25";
+            } else {
+                speedIndicator.innerText = "Velocidad Normal";
+                speedIndicator.className = "px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/25";
+            }
+
+            // Vector de velocidad (tangente a la elipse)
+            // Derivada de la elipse: dx/dt = -a*sin(t), dy/dt = b*cos(t)
+            const vx = -a2 * Math.sin(angle2);
+            const vy = b2 * Math.cos(angle2);
+            const vLength = Math.sqrt(vx*vx + vy*vy);
+            
+            // Normalizar e incrementar según la magnitud real de la velocidad
+            const scaleVel = (physicalSpeed * 1.5);
+            const normVx = (vx / vLength) * scaleVel;
+            const normVy = (vy / vLength) * scaleVel;
+
+            velVector.setAttribute('x1', px);
+            velVector.setAttribute('y1', py);
+            velVector.setAttribute('x2', px + normVx);
+            velVector.setAttribute('y2', py + normVy);
+
+            // Dibujar áreas de simulación periódicamente (sectores de tiempo constante Delta T)
+            ticksCounter++;
+            if (ticksCounter - lastSectorsUpdate > 120) { // Cada ciclo de tiempo aproximado
+                addSector(angle2 - 0.25, angle2);
+                lastSectorsUpdate = ticksCounter;
+            }
+        }
+
+        // Añade un sector coloreado barrido por el radio vector
+        function addSector(startAngle, endAngle) {
+            if (savedSectors.length > 5) {
+                savedSectors.shift(); // limitar cantidad de áreas en pantalla
+            }
+
+            const points = [];
+            // Calcular puntos del arco para construir el sector elíptico
+            const steps = 15;
+            for (let i = 0; i <= steps; i++) {
+                const theta = startAngle + (endAngle - startAngle) * (i / steps);
+                const x = 300 + a2 * Math.cos(theta);
+                const y = 200 + b2 * Math.sin(theta);
+                points.push(`${x},${y}`);
+            }
+
+            // Construir el string del elemento path SVG
+            const dPath = `M ${solX2} 200 L ${points.join(' L ')} Z`;
+            savedSectors.push(dPath);
+
+            renderSectors();
+        }
+
+        function renderSectors() {
+            let html = '';
+            savedSectors.forEach((pathData, index) => {
+                const color = index % 2 === 0 ? '#10b981' : '#34d399';
+                html += `<path d="${pathData}" fill="${color}" fill-opacity="0.18" stroke="${color}" stroke-width="1.5" />`;
+            });
+            sectorsLayer.innerHTML = html;
+        }
+
+        // Controles de eventos de 2ª Ley
+        playBtn2.addEventListener('click', () => {
+            isPlaying2 = !isPlaying2;
+            playBtn2.innerHTML = isPlaying2 ? "<span>⏸️</span> Pausar" : "<span>▶️</span> Reanudar";
+        });
+
+        sweepBtn2.addEventListener('click', () => {
+            savedSectors = [];
+            sectorsLayer.innerHTML = '';
+        });
+
+        // Loop de renderizado para Ley 2
+        function loopLey2() {
+            runLey2();
+            requestAnimationFrame(loopLey2);
+        }
+        loopLey2();
+
+
+        // ==========================================
+        // SIMULACIÓN DE LA 3ª LEY (LEY DE LOS PERIODOS)
+        // ==========================================
+        const semiaSlider3 = document.getElementById('semia3');
+        const valA3 = document.getElementById('val-a3');
+        const orbitActual = document.getElementById('orbit-actual');
+        const planetaActual = document.getElementById('planeta-actual');
+        const planetaRef = document.getElementById('planeta-ref');
+
+        // Stats
+        const statA = document.getElementById('stat-a');
+        const statT = document.getElementById('stat-t');
+        const statA3 = document.getElementById('stat-a3');
+        const statT2 = document.getElementById('stat-t2');
+
+        let angleActual = 0;
+        let angleRef = 0;
+
+        function updateLey3() {
+            const a = parseFloat(semiaSlider3.value);
+            valA3.innerText = `${a.toFixed(2)} UA`;
+
+            // Radio de órbita visual (Normalizado: 1.00 UA = 100px)
+            const visualRadius = a * 100;
+            orbitActual.setAttribute('r', visualRadius);
+
+            // Calcular T usando T^2 = a^3  => T = a^(1.5)
+            const t = Math.pow(a, 1.5);
+
+            // Mostrar estadísticas
+            statA.innerHTML = `${a.toFixed(2)} <span class="text-xs font-normal text-slate-500">UA</span>`;
+            statT.innerHTML = `${t.toFixed(2)} <span class="text-xs font-normal text-slate-500">años</span>`;
+            statA3.innerText = Math.pow(a, 3).toFixed(3);
+            statT2.innerText = Math.pow(t, 2).toFixed(3);
+        }
+
+        function setPlanet(aValue) {
+            semiaSlider3.value = aValue;
+            updateLey3();
+        }
+
+        function animarLey3() {
+            const a = parseFloat(semiaSlider3.value);
+            const visualRadius = a * 100;
+            
+            // Período real en años
+            const t = Math.pow(a, 1.5);
+
+            // El planeta de referencia (Tierra, r=100px) se mueve a una velocidad base
+            const speedBase = 0.015;
+            angleRef += speedBase;
+            
+            // La velocidad del planeta dinámico depende de su periodo T
+            // Como T = a^1.5, su paso angular es speedBase / T
+            angleActual += speedBase / t;
+
+            // Posiciones
+            const pxRef = 300 + 100 * Math.cos(angleRef);
+            const pyRef = 200 + 100 * Math.sin(angleRef);
+            planetaRef.setAttribute('cx', pxRef);
+            planetaRef.setAttribute('cy', pyRef);
+
+            const pxActual = 300 + visualRadius * Math.cos(angleActual);
+            const pyActual = 200 + visualRadius * Math.sin(angleActual);
+            planetaActual.setAttribute('cx', pxActual);
+            planetaActual.setAttribute('cy', pyActual);
+
+            requestAnimationFrame(animarLey3);
+        }
+
+        semiaSlider3.addEventListener('input', updateLey3);
+        updateLey3();
+        animarLey3();
+    </script>
+</body>
+</html>
